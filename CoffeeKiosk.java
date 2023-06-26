@@ -1,46 +1,65 @@
+import java.time.Year;
 import java.util.ArrayList;
 
 public class CoffeeKiosk {
-    ArrayList<Item> menu;
-    ArrayList<Order> orders;
+    private ArrayList<Item> menu;
+    private  ArrayList<Order> orders;
 
     public  CoffeeKiosk(){
-        this.menu = new ArrayList<>();
-        this.orders = new ArrayList<>();
+        this.menu = new ArrayList<Item>();
+        this.orders = new ArrayList<Order>();
     }
-    public void addItem(String name, double price){
+    public void addMenuItem(String name, double price){
         Item item = new Item(name,price);
-        this.menu.add(0, item);
+        this.menu.add(item);
         item.setIndex(menu.size());
     }
     public void displayMenu(){
-        for(int i=menu.size()-1; i>=0; i--){
-            Item item = menu.get(i);
-            System.out.print("\n"+item.getIndex());
+        System.out.println("");
+        for(Item item:this.menu){
+            // Item item = menu.get(i);
+            System.out.print(item.getIndex());
             System.out.print(" "+item.getName());
             for(int j=0; j<15-item.getName().length();j++){
                 System.out.print(" ");
             }
-            System.out.println(item.getPrice()+"\n");
+            System.out.println(item.getPrice());
         }
+        System.out.println("");
+
     }
     public void newOrder(){
         System.out.println("Please enter customer name for new order:");
         String name = System.console().readLine();
-
         // Create new Order Object
-
-
-
-        System.out.println("Please enter a menu item index or q to quit:");
-        String itemNumber = System.console().readLine();
+        Order order = new Order(name);
+        displayMenu();
+        String itemNumber = "";
         while(!itemNumber.equals("q")){
-            int itemNumberInt = Integer.parseInt(itemNumber);
-            // get item object from menu
-            Item item = menu.get(itemNumberInt);
-            System.out.println(item.getName());
-
+            System.out.println("Please enter a menu item index or q to quit:");
+            itemNumber = System.console().readLine();
+            int itemNumberInt;
+            try {
+                itemNumberInt = Integer.parseInt(itemNumber);
+            } catch (NumberFormatException e) {
+                continue;
+            }
+            if (itemNumberInt < this.menu.size()+1){
+                Item item = menu.get(itemNumberInt-1); 
+                System.out.println("A "+item.getName());
+                order.addItem(item);
+                for(Item oneItem:order.getItems()){
+                    System.out.print(oneItem.getName()+" ");
+                }
+            }
         }
+        order.display();
+
+
+
+
+
+            // item
             // add item to order
 
             // ask them to enter a new item

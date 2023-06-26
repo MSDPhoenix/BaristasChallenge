@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.text.DecimalFormat;
 
 public class Order {
     private String name;
@@ -40,6 +41,10 @@ public class Order {
                 itemName +=" ".repeat(14 - itemName.length());
             System.out.println(itemName+item.getPrice());
         }
+        double total = this.getTotal();
+        DecimalFormat df = new DecimalFormat("#.00");
+        String totalB = df.format(total);
+        System.out.printf("Total for this order: $%s\n\n",totalB);
     }
 
     public String getName(){
