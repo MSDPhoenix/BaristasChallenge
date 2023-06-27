@@ -8,5 +8,6 @@ public class Test {
         cafe.addMenuItem("mocha", 3.99);
         cafe.displayMenu();
         cafe.newOrder();
+        cafe.addMenuItemByInput();
     }
 }
